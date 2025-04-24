@@ -9,9 +9,11 @@ import java.util.Optional;
 public interface ExpenseRepo extends JpaRepository<Expense, Long> {
 
 
+    List<Expense> findByUserId(String userId);
 
-    List<Expense>findByUserId(String userId);
+
+    List<Expense> findByUserIdAndCreatedAtBetween(String userId, String startDate, String endDate);
 
 
-    List<Expense>findByUserIdAndCreatedAtBetween(String userId, String startDate, String endDate);
+    Optional<Expense> findByUserIdAndExternalId(String userId, String externalId);
 }
