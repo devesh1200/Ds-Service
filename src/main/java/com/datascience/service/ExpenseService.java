@@ -6,6 +6,7 @@ import com.datascience.repository.ExpenseRepo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -14,12 +15,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-
 public class ExpenseService {
 
-    private ExpenseRepo expenseRepo;
 
-    private ObjectMapper objectMapper;
+    private final ExpenseRepo expenseRepo;
+
+
+    private  final ObjectMapper objectMapper;
 
     public ExpenseService(ExpenseRepo expenseRepo, ObjectMapper objectMapper) {
         this.expenseRepo = expenseRepo;
@@ -40,13 +42,13 @@ public class ExpenseService {
 
     }
 
-    public void setCurrency(ExpenseDto expenseDto) {
+    private void setCurrency(ExpenseDto expenseDto) {
         if (Objects.isNull(expenseDto.getCurrency())) {
-            expenseDto.setCurrency("inr");
+            expenseDto.setCurrency("INR");
         }
-
-
     }
+
+
 
     public boolean updateExpense(ExpenseDto expenseDto) {
         setCurrency(expenseDto);
