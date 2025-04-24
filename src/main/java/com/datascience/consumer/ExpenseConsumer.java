@@ -1,0 +1,33 @@
+package com.datascience.consumer;
+
+import com.datascience.dto.ExpenseDto;
+import com.datascience.service.ExpenseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ExpenseConsumer {
+
+    private ExpenseService expenseService;
+
+
+    public ExpenseConsumer(ExpenseService expenseService) {
+        this.expenseService = expenseService;
+
+    }
+
+
+    @KafkaListener(topics = "${spring.kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
+    public void consume(ExpenseDto eventData) {
+        try {
+
+            expenseService.createExpense(eventData);
+        } catch (Exception e) {
+            System.out.println("Error in consuming message: " + e.getMessage());
+        }
+
+    }
+
+}

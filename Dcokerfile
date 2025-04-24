@@ -1,0 +1,9 @@
+FROM openjdk:17
+
+COPY target/DsService.jar  /usr/app/
+
+WORKDIR /usr/app/
+
+EXPOSE 8083
+
+ENTRYPOINT ["java", "-jar", "DsService.jar"]
