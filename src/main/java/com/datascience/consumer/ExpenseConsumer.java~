@@ -23,6 +23,7 @@ public class ExpenseConsumer {
     public void consume(ExpenseDto eventData) {
         try {
 
+            expenseService.createExpense(eventData);
         } catch (Exception e) {
             System.out.println("Error in consuming message: " + e.getMessage());
         }
